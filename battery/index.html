@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Battery API test application</title>
+    <style>
+      body {
+        color: white;
+        background-color: black;
+      }
+      #battery {
+        margin-top: 10%;
+        margin-right: 5%;
+        margin-left: 5%;
+        margin-bottom: 5px;
+        height: 100px;
+        width: 90%;
+      }
+      @keyframes glow {
+        from {
+          box-shadow: 0px 0px 15px yellow;
+        }
+        to {
+          box-shadow: 0px 0px 30px yellow;
+        }
+      }
+      #battery.charging {
+        animation: glow 1.0s ease infinite alternate;
+      }
+
+      #estimation {
+        margin-left: -moz-calc(5% + 2px);
+        margin-right: 5%;
+        font-size: 10pt;
+      }
+
+      #estimation[charging=true] > .discharging,
+      #estimation[charging=false] > .charging {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <meter id='battery' min='0' low='0.25' high='0.75' optimum='1.00' max='1.00'>
+    </meter>
+    <div id='estimation'>
+      <span class='discharging'>Estimated battery life:
+        <span id='dischargingtime'></span>
+      </span>
+      <span class='charging'>Estimated charging time:
+        <span id='chargingtime'></span>
+      </span>
+    </div>
+  </body>
+  <script>
+    function timeToText(aTime) {
+      if (aTime == null || aTime == undefined) {
+        return "-";
+      }
+
+      var seconds = aTime % 60;
+      var minutes = Math.floor(aTime / 60) % 60;
+      var hours   = Math.floor(aTime / 3600) % 60;
+
+      var txt = "";
+      if (hours != 0) {
+        txt += hours + "h ";
+      }
+      if (minutes != 0 || txt != "") {
+        txt += minutes + "mins ";
+      }
+      return txt + seconds + "s";
+    }
+
+    function chargingChange() {
+      if (navigator.battery.charging) {
+        document.getElementById('battery').classList.add('charging');
+      } else {
+        document.getElementById('battery').classList.remove('charging');
+      }
+      document.getElementById('estimation')
+              .setAttribute('charging', navigator.battery.charging);
+    }
+    function dischargingTimeChange() {
+      document.getElementById('dischargingtime')
+              .textContent = timeToText(navigator.battery.dischargingTime);
+    }
+    function chargingTimeChange() {
+      document.getElementById('chargingtime')
+              .textContent = timeToText(navigator.battery.chargingTime);
+    }
+    function levelChange() {
+      document.getElementById('battery').value = navigator.battery.level;
+    }
+
+    navigator.battery.onchargingchange = chargingChange;
+    navigator.battery.ondischargingtimechange = dischargingTimeChange;
+    navigator.battery.onchargingtimechange = chargingTimeChange;
+    navigator.battery.onlevelchange = levelChange;
+
+    chargingChange();
+    dischargingTimeChange();
+    chargingTimeChange();
+    levelChange();
+  </script>
+</html>

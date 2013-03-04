@@ -1,0 +1,11 @@
+{
+  "name": "Notifications test",
+  "description": "Test application for the Web Notifications API",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Mounir Lamouri"
+  },
+  "permissions": {
+    "desktop-notification": {}
+  }
+}

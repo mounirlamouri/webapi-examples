@@ -1,0 +1,8 @@
+{
+  "name": "Battery API test",
+  "description": "Test application for the Battery Status API",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Mounir Lamouri"
+  }
+}

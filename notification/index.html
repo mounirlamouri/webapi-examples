@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Web Notifications API test app</title>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+      }
+      #send {
+        margin: 10% 10% 5% 10%;
+        width: 80%;
+        height: 100px;
+      }
+      #log {
+        margin-left: -moz-calc(10% + 5px);
+      }
+    </style>
+  </head>
+  <body>
+    <button id='send'>Send a notification</button>
+    <div id='log'></div>
+  </body>
+  <script>
+    // Hook the button with actual notification sending.
+    document.getElementById('send').onclick = function() {
+      var title = 'Web Notification';
+      var message = 'This is a simple example to test the API.';
+      // This is a mozilla icon in data-uri.
+      var icon = "data:image/vnd.microsoft.icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A/Pz8A+/v7w/7+/sD////AP///wD///8A////AP///wD///8A////AP///wD///8A////APv7+wOgoKFgO0F0xAYRd/gAAQv/rKysVP///wD///8A////AP///wD///8A////AP///wD///8A////AOnp6RU9QWHCABTI/wAa/v8AF+n/AAtu/3Z2dor///8A////AP///wD///8A////AP///wD///8A////AP///wBhYWGgAAY5/wAW2P8AGv//ABjy/wARq/8rL0zT/f39Af///wD///8A////AP///wD///8A////AP///wDm5uYaWFhYrAAGPP8AFt7/ABr//wAa//8AFdX/AAEQ/01NTbLQ0NAw1NTUK5iYmGeQkJBw9fX1Cv///wDs7OwTsLCwUiEhId4AAhT/ABn+/wAY8f8AGPL/AAtx/wAPmv8AEJ7/AAtt/wAKZf8ADo7/AgpH/x8fH+qZmZln29vbJmlpaZgRERHuABCc/wAa//8ADHX/ABO7/wAX6f8AGfv/AApk/wAKZf8JCx3/EBAS/xAWSP8GEG3/IyhQ3bi4uEpeXl6lAgMQ/QAZ9/8AGv//AAph/wAZ9f8AGv//ABO6/wACFv8AAAD/AQc+/wAV0f8AGv//ABPC/xccROjY2NgoNTU1zQABCf8ADYH/ABr//wATuf8AGv//ABr//wAV1f8AC2//AA6P/wAZ/f8AGv//ABr//wATvf88PDzExsbGOmdnZ5sPDw/wAAU3/wAa/v8AGf3/ABK1/wAFMv8AE77/ABGs/wAPlP8AFcz/ABCd/ycsX9mIiIh57+/vEf///wCurq5SDAwM8wADH/8AFt7/ABCk/wAQnP8AEa3/AA2G/wENcv8XFxj/FRcw6rCwsFD9/f0A////AP///wD///8A////ANTU1C0rKyzVAA2A/wAV0P8ADoj/ABfp/wALbv8ACV7/AAU3/19gYJ////8A////AP///wD///8A////AP///wD///8A9/f3B4SEhHsdIDzgAAhQ/x8kS+Bubm+TdnZ3i2xsdJPn5+cY////AP///wD///8A////AP///wD///8A////AP///wD///8A////APHx8Qz///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A////AP///wD///8A//8AAP//AAD4/wAA4H8AAMB/AADAPwAAwAEAAIAAAACAAAAAgAAAAIADAADADwAA4A8AAPgfAAD//wAA//8AAA==";
+
+      var notification = navigator.mozNotification.createNotification(title, message, icon);
+      // Make sure the notification will tell us when it has been clicked.
+      notification.onclick = function() {
+        document.getElementById('log').innerHTML += '<br><span>Notification clicked.</span>';
+      };
+      notification.show();
+    };
+  </script>
+</html>

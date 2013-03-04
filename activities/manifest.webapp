@@ -1,0 +1,8 @@
+{
+  "name": "Web Activities test app",
+  "description": "Test application for the Web Activities API",
+  "launch_path": "/index.html",
+  "developer": {
+    "name": "Mounir Lamouri"
+  }
+}

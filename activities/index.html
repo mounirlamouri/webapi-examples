@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Web Activities API test app</title>
+    <style>
+      body {
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <button id='pick'>pick</button>
+  </body>
+  <script>
+    document.getElementById('pick').onclick = function() {
+      var activity = new MozActivity({
+        name: 'new',
+        data: {
+          type: 'websms/sms',
+          number: '01234567678'
+        }
+      });
+    };
+  </script>
+</html>
